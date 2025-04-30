@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+set -ex
+
+## Be sure to place the data downloaded from figshare into the data folder here please as following
+
+########## 1.  First, the code that familiarity mapping according to some parameter. ############
+
+# Define the parameters
+irl_path="/data/raw/images_offline/images_100523_AVM_line_mapping/Expl4"
+it_path="/data/raw/images_offline/images_100523_AVM_line_mapping/all"
+param_values="10000,4,5,0.01,10000,4,5,0.01"
+b=5  # constant parameter for osl
+vis_values="32,3"
+sav=0
+
+script=notebooks/train_test_mapping.py
+
+# List of osl values to iterate over
+osl_values_list=(15 30 45 60 75 90 105 120 135 150 165 180)
+
+# Log the parameters in a CSV file
+# Define the CSV file path
+csv_file="/results/mapping_parameters.csv"
+
+# Create the CSV file with a header if it doesn't exist
+if [ ! -f "$csv_file" ]; then
+    echo "irl_path,it_path,param_values,osl_values,vis_values,unique_id,1,2,3,4,5,6,7,8,9" > "$csv_file"
+fi
+
+# Loop over each osl value
+for osl in "${osl_values_list[@]}"; do
+    osl_values="${osl},${b}"
+
+    # Create the header line if the file doesn't exist
+    if [ ! -f "$csv_file" ]; then
+        echo "irl_path,it_path,param_values,osl_values,vis_values,unique_id" > "$csv_file"
+    fi
+
+    # Create a unique identifier for each set of parameters
+    unique_id=$(echo -n "${irl_path},${it_path},${param_values},${osl_values},${vis_values}" | md5sum | cut -c 1-8)
+
+    # Combine parameters to create a unique identifier (e.g., using a hash function)
+    new_line="${irl_path},${it_path},${param_values},${osl_values},${vis_values},${unique_id}"
+
+    # Create the output filename using the unique identifier
+    output_file="/results/mapping_${unique_id}"
+
+    # Use sed to insert the new line after the header line
+    sed -i "1 a $new_line" "$csv_file"
+
+    # Run the Python script with the specified parameters
+    python3 $script -irl $irl_path -it $it_path -o $output_file -p $param_values -osl $osl_values -vis $vis_values -sav $sav
+
+	rm -rf "$output_file/images"
+
+    echo "Script execution completed for osl=${osl},${b}."
+done
+
+
+############ 2. Then the 2 jupyter notebook that create the plots according to the previous code runned ############
+jupyter nbconvert \
+	--to 'html' \
+	--ExecutePreprocessor.allow_errors=True \
+	--ExecutePreprocessor.timeout=-1 \
+	--FilesWriter.build_directory=../results \
+	--execute notebooks/mappingLeftRightAnalysis.ipynb
+ 
+jupyter nbconvert \
+	--to 'html' \
+	--ExecutePreprocessor.allow_errors=True \
+	--ExecutePreprocessor.timeout=-1 \
+	--FilesWriter.build_directory=../results \
+	--execute notebooks/linearityTestAnalysis.ipynb
+ 
+
+# 3. This is the code that will read and plot datas from real time experiments
+jupyter nbconvert \
+	--to 'html' \
+	--ExecutePreprocessor.allow_errors=True \
+	--ExecutePreprocessor.timeout=-1 \
+	--FilesWriter.build_directory=../results \
+	--execute notebooks/realTimeExperimentsAnalysis.ipynb
+ 
+# 4. Finally code for memory capacity analysis
+jupyter nbconvert \
+	--to 'html' \
+	--ExecutePreprocessor.allow_errors=True \
+	--ExecutePreprocessor.timeout=-1 \
+	--FilesWriter.build_directory=../results \
+	--execute notebooks/analyze_memory_capacitance_article.ipynb
+ 

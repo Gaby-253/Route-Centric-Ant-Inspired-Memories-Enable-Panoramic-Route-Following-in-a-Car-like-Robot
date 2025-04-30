@@ -1,0 +1,62 @@
+metadata_version: 1
+name: Route-Centric Ant-Inspired Memories Enable Panoramic Route-Following in a Car-like
+  Robot
+description: "# Route-Centric Ant-Inspired Memories Enable Panoramic Route-Following
+  in a Car-like Robot\n\nCode (and dataset) for our submitted paper \"Route-Centric
+  Ant-Inspired Memories Enable Panoramic Route-Following in a Car-like Robot\" in
+  *Nature Communications*.\n\nYou can download the paper via: **Upon Publication**
+  \n\n<!-- [[DOI]](https://doi.org/xx/xx) [[ResearchSquare]](https://arxiv.org/abs/xxxx.xxxxx).
+  -->\n\nThe explicative video is available at [[YouTube]](https://youtu.be/6YIkDhN4SaY)\n\n##
+  One-Sentence Summary\n\nOur work presents an ant-inspired Mushroom Body model on
+  a compact, low-cost robotic platform, achieving continuous, efficient, and adaptable
+  navigation in real-world environments with minimal computational resources.\n\n![Insert
+  a preview image here](antcar_and_ant.jpg)\n\n\n## Abstract\n\nSolitary foraging
+  ants excel at route following using minimal neural resources, Robots don't. Recent
+  biological studies proposed lateralized, nest-centric memories to explain ants'
+  direct visual homing but did not address how ants follow curved visual routes away
+  from their nest. We present a biologically inspired neuromorphic model for one-shot
+  panoramic route learning and continuous route following, implemented on a compact
+  car-like robot, Antcar. We demonstrate that route-centric lateralized memories,
+  inspired by the insect mushroom body, enable Antcar to achieve bi-directional route-following,
+  with motivation-driven recognition of route extremities and familiarity-based velocity
+  control. With rigorous Lyapunov-based stability analysis and an empirical memory
+  scalability evaluation, the model was tested over 1.6 km across 113 challenging
+  real-world trials. The system achieves less than 25 cm median lateral error using
+  minimal resources (800-pixel input, 300 MB RAM, 500 mW power, and 18.75 kB memory
+  per 50 m route), offering insights into insect cognition and advancing autonomous
+  robotics under strict resource constraints.\n\n## Project Setup and Environment
+  Preparation\n\nJust run the run.sh file and it will run every code, it will put
+  the results in results folder, you can see the figures generated in the results/figure
+  folder. You will find the generated Jupyter notebooks as well and the mapping folders
+  for different oscillations amplitude of learning.\n\n## Citation\n\nIf this work
+  is helpful, please cite as: *** Upon Publication***\nThe code used in the AntCar
+  robot for real-time learning and route following is available upon request.\n\n##
+  Acknowledgments\n\nG.G. was supported by a doctoral fellowship grant from Aix  Marseille
+  University and the French Ministry of Defense (AID - Agence Innovation D\\'{e}fense,
+  agreement \\#A01D22020549 ARM/DGA /AID). G.G., J.R.S. and F.R. were also supported
+  by Aix Marseille University and the CNRS (Life Science, Information Science, and
+  Engineering and Science \\& technology Institutes). The facilities for the experimental
+  tests has been mainly provided by ROBOTEX 2.0 (Grants ROBOTEX ANR-10-EQPX-44-01
+  and TIRREX ANR-21-ESRE-0015).\n\n## Contact\n\ngabriel.gattaux_at_univ-amu.fr\n##
+  License\n\n[License]"
+tags:
+- bio-inspired-algorithm
+- biorobotic
+- neural network
+- computational neuroscience
+authors:
+- name: Gabriel Gattaux
+  affiliations:
+  - name: Aix-Marseille University
+- name: Antoine Wystrach
+  affiliations:
+  - name: University of Toulouse
+- name: 'Julien Serres '
+  affiliations:
+  - name: Aix-Marseille University
+- name: Franck Ruffier
+  affiliations:
+  - name: Aix-Marseille University
+corresponding_contributor:
+  name: Gabriel Gattaux
+  email: gabriel.gattaux@univ-amu.fr
